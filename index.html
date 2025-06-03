@@ -4,107 +4,123 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jaxon - Your AI Assistant</title>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f1f1f1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-  .chat-container {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-  }
+    .chat-container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
 
-  .chat-box {
-    flex-grow: 1;
-    padding: 15px;
-    overflow-y: auto;
-    border-bottom: 2px solid #eee;
-    margin-bottom: 10px;
-  }
+    .chat-box {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      border-bottom: 2px solid #eee;
+      margin-bottom: 10px;
+    }
 
-  .user-input {
-    width: calc(100% - 90px);
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-  }
+    .user-input {
+      width: calc(100% - 90px);
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
 
-  button {
-    width: 70px;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-  }
+    button {
+      width: 70px;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-  button:hover {
-    background-color: #45a049;
-  }
+    button:hover {
+      background-color: #45a049;
+    }
 
-  /* Custom styling for messages */
-  .user {
-    background-color: #e2f7e4;
-    color: #333;
-    padding: 8px 12px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    max-width: 80%;
-    align-self: flex-end;
-    font-size: 14px;
-  }
+    /* Custom styling for messages */
+    .user {
+      background-color: #e2f7e4;
+      color: #333;
+      padding: 8px 12px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      max-width: 80%;
+      align-self: flex-end;
+      font-size: 14px;
+    }
 
-  .ai {
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 8px 12px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    max-width: 80%;
-    align-self: flex-start;
-    font-size: 14px;
-  }
+    .ai {
+      background-color: #f0f0f0;
+      color: #333;
+      padding: 8px 12px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      max-width: 80%;
+      align-self: flex-start;
+      font-size: 14px;
+    }
 
-  /* Make chat bubbles responsive */
-  .chat-container {
-    width: 100%;
-    max-width: 400px;
-    height: 500px;
-  }
+    /* Chatbox container */
+    .chat-container {
+      width: 100%;
+      max-width: 400px;
+      height: 500px;
+    }
 
-  .chat-box {
-    padding-bottom: 50px; /* Prevents the input field from overlaying the chat */
-  }
+    .chat-box {
+      padding-bottom: 50px; /* Prevents the input field from overlaying the chat */
+    }
 
-  /* Ensure the input and button stay in place */
-  .user-input,
-  button {
-    font-size: 14px;
-    margin-top: 10px;
-  }
-</style>
+    /* Console UI */
+    #console-panel {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      width: 400px;
+      height: 200px;
+      background-color: #333;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    #console-panel pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+  </style>
 </head>
 <body>
   <div class="chat-container">
@@ -113,9 +129,36 @@
     <button onclick="sendMessage()">Send</button>
   </div>
 
+  <!-- Console Panel -->
+  <div id="console-panel">
+    <h4>Console Logs</h4>
+    <pre id="console-logs">Loading...</pre>
+  </div>
+
   <script>
-    // Make sure to replace this with your actual OpenAI API key
     const OPENAI_API_KEY = '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';
+    let consoleLogs = []; // Array to store logs for console UI
+
+    // Function to open the console UI with logs
+    function toggleConsole() {
+      const consolePanel = document.getElementById("console-panel");
+      const isVisible = consolePanel.style.display === 'block';
+      consolePanel.style.display = isVisible ? 'none': 'block';
+    }
+
+    // Key combination to open the console
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.altKey && e.shiftKey && e.key === 'C') {
+        toggleConsole();
+      }
+    });
+
+    // Function to log to the console UI
+    function logToConsole(message) {
+      consoleLogs.push(message); // Store message in the array
+      document.getElementById('console-logs').textContent = consoleLogs.join("\n");
+      console.log(message); // Log to the browser's console as well
+    }
 
     // Function to send the message and display it
     function sendMessage() {
@@ -123,6 +166,7 @@
       if (userInput.trim() !== "") {
         addMessage("You: " + userInput, "user");
         document.getElementById("user-input").value = ""; // Clear input field
+        logToConsole(`User: ${userInput}`);
 
         setTimeout(() => {
           getAIResponse(userInput); // Make API call to OpenAI
@@ -140,40 +184,41 @@
       chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
     }
 
-// Function to get AI response from OpenAI
-async function getAIResponse(input) {
-  try {
-    const response = await fetch('https://api.openai.com/v1/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "text-davinci-003", // Or other models like gpt-3.5-turbo or gpt-4 if available
-        prompt: input,
-        max_tokens: 150,
-        temperature: 0.7,
-      })
-    });
+    // Function to get AI response from OpenAI
+    async function getAIResponse(input) {
+      try {
+        const response = await fetch('https://api.openai.com/v1/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${OPENAI_API_KEY}`,
+          },
+          body: JSON.stringify({
+            model: "text-davinci-003",
+            prompt: input,
+            max_tokens: 150,
+            temperature: 0.7,
+          })
+        });
 
-    if (!response.ok) {
-      throw new Error(`API call failed: ${response.statusText}`);
+        if (!response.ok) {
+          throw new Error(`API call failed: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        if (data.choices && data.choices[0] && data.choices[0].text) {
+          const aiText = data.choices[0].text.trim(); // Extract AI response text
+          addMessage("Jaxon: " + aiText, "ai");
+          logToConsole(`Jaxon: ${aiText}`);
+        } else {
+          throw new Error('No response from OpenAI');
+        }
+      } catch (error) {
+        console.error('Error fetching AI response:', error);
+        addMessage("Jaxon: Oops! Something went wrong, please try again.", "ai");
+        logToConsole(`Error: ${error.message}`);
+      }
     }
-
-    const data = await response.json();
-    if (data.choices && data.choices[0] && data.choices[0].text) {
-      const aiText = data.choices[0].text.trim(); // Extract AI response text
-      addMessage("Jaxon: " + aiText, "ai");
-    } else {
-      throw new Error('No response from OpenAI');
-    }
-  } catch (error) {
-    console.error('Error fetching AI response:', error);
-    addMessage("Jaxon: Oops! Something went wrong, please try again.", "ai");
-  }
-}
-
   </script>
 </body>
 </html>
