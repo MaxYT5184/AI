@@ -4,83 +4,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jaxon - Your AI Assistant</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f1f1f1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
 
-    .chat-container {
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      width: 350px;
-      height: 500px;
-      display: flex;
-      flex-direction: column;
-    }
+  .chat-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
 
-    .chat-box {
-      flex-grow: 1;
-      padding: 15px;
-      overflow-y: auto;
-      border-bottom: 2px solid #eee;
-    }
+  .chat-box {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 10px;
+  }
 
-    .user-input {
-      width: calc(100% - 70px);
-      padding: 10px;
-      margin: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
+  .user-input {
+    width: calc(100% - 90px);
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+  }
 
-    button {
-      width: 60px;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+  button {
+    width: 70px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
 
-    button:hover {
-      background-color: #45a049;
-    }
+  button:hover {
+    background-color: #45a049;
+  }
 
-    /* Custom styling for messages */
-    .user {
-      background-color: #e2f7e4;
-      color: #333;
-      padding: 8px;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      max-width: 80%;
-      align-self: flex-end;
-    }
+  /* Custom styling for messages */
+  .user {
+    background-color: #e2f7e4;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    align-self: flex-end;
+    font-size: 14px;
+  }
 
-    .ai {
-      background-color: #f0f0f0;
-      color: #333;
-      padding: 8px;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      max-width: 80%;
-      align-self: flex-start;
-    }
-  </style>
+  .ai {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    align-self: flex-start;
+    font-size: 14px;
+  }
+
+  /* Make chat bubbles responsive */
+  .chat-container {
+    width: 100%;
+    max-width: 400px;
+    height: 500px;
+  }
+
+  .chat-box {
+    padding-bottom: 50px; /* Prevents the input field from overlaying the chat */
+  }
+
+  /* Ensure the input and button stay in place */
+  .user-input,
+  button {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+</style>
 </head>
 <body>
   <div class="chat-container">
